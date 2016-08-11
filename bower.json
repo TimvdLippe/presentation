@@ -1,0 +1,13 @@
+{
+  "name": "presentation",
+  "private": true,
+  "dependencies": {
+    "polymer": "polymer/polymer#^1.0.0",
+    "literally": "notwaldorf/literally#master",
+    "iron-demo-helpers": "^1.2.4",
+    "iron-ajax": "^1.4.3"
+  },
+  "devDependencies": {
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
+  }
+}

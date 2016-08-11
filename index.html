@@ -1,0 +1,247 @@
+<!doctype html>
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+  <title>Building for the future with Polymer</title>
+
+  <!-- Load the polyfill -->
+  <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+  <!-- <script>window.Polymer = {dom: 'shadow'};</script> -->
+
+  <!-- Load the elements -->
+  <link rel="import" href="bower_components/literally/a-presentation.html">
+  <link rel="import" href="bower_components/literally/a-slide.html">
+  <link rel="import" href="bower_components/iron-ajax/iron-ajax.html">
+  <link rel="import" href="bower_components/iron-demo-helpers/demo-snippet.html">
+
+  <link rel="stylesheet" href="bower_components/literally/sample-theme.css">
+
+  <!-- Some fonts! -->
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,700italic,700,400italic,100,100italic' rel='stylesheet' type='text/css'>
+  <link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet">
+
+  <style>
+    /* The sample-theme.css sets up some slide backgrounds for you. Here
+       we set up some content related styles.
+     */
+
+    /* Set up some fonts */
+    body {
+      font-family: 'Roboto', sans-serif;
+    }
+    pre {
+      font-family: 'Inconsolata', monospace;
+    }
+
+    /* Disable bounce scrolling if that's not your thing (it's not mine) */
+    html, body {
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+      -webkit-overflow-scrolling: auto;
+    }
+
+    .code-snippet {
+      background-color: rgba(0, 0, 0, 0.6);
+      width: 100%;
+      padding: 20px;
+      font-size: calc(10px + 2vw);
+      overflow-x: auto;
+    }
+
+    .iframe-title {
+      font-size: 24px;
+      font-weight: lighter;`
+    }
+
+    a-slide.theme-gradient-webcomponents:before {
+      /* Use this so that it blurs just the background image, and not
+       * the foreground text */
+      content: "";
+      position: fixed;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      z-index: -1;
+
+      /* Hack to get rid of the white border after blurring */
+      transform: scale(1.02);
+
+      -webkit-filter: blur(5px);
+      -moz-filter: blur(5px);
+      -o-filter: blur(5px);
+      -ms-filter: blur(5px);
+      filter: blur(5px);
+
+      background: url("./images/webcomponents.jpg")
+          center center no-repeat,
+          -webkit-linear-gradient(top, rgba(1, 1, 1, 0.3) 0%, rgba(1, 1, 1, 0.5) 100%);
+
+      background-blend-mode: multiply;
+      background-size: cover;
+    }
+
+    .theme-demo {
+      background: #4285ff;
+    }
+
+    .theme-demo demo-snippet {
+      width: 750px;
+      margin: 0 auto;
+    }
+
+    .pretitle img {
+      width: 250px;
+    }
+
+    img.circle {
+      border-radius: 50%;
+    }
+
+    iframe {
+      height: 80vh;
+      width: 80vw;
+    }
+  </style>
+</head>
+<body unresolved>
+  <a-presentation animated>
+    <a-slide class="theme-blue">
+      <div class="title">Polymer</div>
+      <div class="subtitle">Building on the modern web</div>
+    </a-slide>
+
+    <a-slide class="theme-blue">
+      <div class="pretitle">
+        <img class="circle" src="https://lh3.googleusercontent.com/BBxQgDdGpeIBMgvEleX7J2W_FEzRlYEg4JM6y-mQumBQhR4AOldW5Czyx33gA8xgHY86tl7HcA=w1920-h1080-rw-no" />
+      </div>
+      <div class="title">Tim van der Lippe</div>
+      <div class="subtitle">Google Developer Expert + <br /> master student CS TU Delft</div>
+    </a-slide>
+
+    <a-slide class="theme-white">
+      <div class="pretitle">
+        <img src="https://www.polymer-project.org/images/logos/p-logo.png" />
+      </div>
+      <div class="title">Javascript library</div>
+      <div class="subtitle">Data-binding + style shim</div>
+    </a-slide>
+
+    <a-slide class="theme-white">
+      <div class="pretitle">
+        <img src="http://webcomponents.org/img/logo.svg" />
+        <span>Webcomponents.js</span>
+      </div>
+      <div class="title">Webcomponents polyfill</div>
+      <div class="subtitle">Old browser compatibility</div>
+    </a-slide>
+
+    <a-slide class="theme-gradient-webcomponents" align-center>
+      <div class="title">Webcomponents</div>
+      <div class="subtitle">Building blocks of the web</div>
+    </a-slide>
+
+    <a-slide class="theme-demo" full-width>
+      <demo-snippet>
+        <template>
+          <!-- Import any dependencies -->
+          <link rel="import" href="bower_components/polymer/polymer.html">
+
+          <!-- Custom element definition -->
+          <dom-module id="hello-world">
+            <!-- Inner structure -->
+            <template>
+              <span>Hello World!</span>
+            </template>
+
+            <script>
+              Polymer({
+                is: 'hello-world'
+              });
+            </script>
+          </dom-module>
+
+          <!-- Usage of custom element -->
+          <hello-world></hello-world>
+        </template>
+      </demo-snippet>
+    </a-slide>
+
+    <a-slide class="theme-demo" full-width>
+      <demo-snippet>
+        <template>
+          <link rel="import" href="bower_components/polymer/polymer.html">
+
+          <dom-module id="red-text">
+            <style>
+              span {
+                color: red;
+              }
+            </style>
+            <template>
+              <span>Red!</span>
+            </template>
+          </dom-module>
+
+          <dom-module id="two-color-text">
+            <style>
+              span {
+                color: blue;
+              }
+            </style>
+            <template>
+              <span>Blue!</span>
+              <red-text></red-text>
+            </template>
+          </dom-module>
+
+          <script>
+            Polymer({
+              is: 'two-color-text'
+            });
+            Polymer({
+              is: 'red-text'
+            });
+          </script>
+          <two-color-text></two-color-text>
+        </template>
+      </demo-snippet>
+    </a-slide>
+
+    <a-slide class="theme-blue">
+      <div class="title">Shadow dom</div>
+      <div class="subtitle">CSS scoping + performance benefits</div>
+    </a-slide>
+
+    <a-slide class="theme-blue" align-center>
+      <iframe src="http://caniuse.com/#feat=shadowdom" width="100%" height="100%"></iframe>
+    </a-slide>
+
+    <a-slide class="theme-blue" align-center>
+      <h1>Dev tools</h1>
+      <img src="images/shadowdom.png" />
+    </a-slide>
+
+    <a-slide class="theme-white" align-center>
+      <h1>A full application</h1>
+      <iframe src="https://shop.polymer-project.org" width="100%" height="100%"></iframe>
+    </a-slide>
+    <a-slide class="theme-white" align-center>
+      <h1><a href="https://github.com/abdonrd/PolymerProjects/blob/master/README.md" target="_blank">Community websites</a></h1>
+      <iframe src="https://rio16.usatoday.com/olympics-rio-2016/schedule-results" width="100%" height="100%"></iframe>
+    </a-slide>
+  </a-presentation>
+</body>
+</html>
