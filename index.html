@@ -379,6 +379,55 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </demo-snippet>
     </a-slide>
 
+    <a-slide class="theme-demo" full-width>
+      <demo-snippet>
+        <template>
+          <link rel="import" href="bower_components/paper-button/paper-button.html">
+
+          <dom-module id="expose-number">
+            <template>
+              <paper-button raised on-tap="_fireNumber">Fire number [[number]]</paper-button>
+            </template>
+            <script>
+              Polymer({
+                is: 'expose-number',
+                properties: {
+                  number: Number
+                },
+                _fireNumber: function() {
+                  this.fire('new-number', this.number);
+                }
+              });
+            </script>
+          </dom-module>
+
+          <dom-module id="fire-event">
+            <template>
+              <expose-number number=5></expose-number>
+              <expose-number number=31></expose-number>
+              <span>Last fired number: [[number]]</span>
+            </template>
+            <script>
+              Polymer({
+                is: 'fire-event',
+                properties: {
+                  number: Number
+                },
+                listeners: {
+                  'new-number': '_setNumber'
+                },
+                _setNumber: function(e) {
+                  this.number = e.detail;
+                }
+              });
+            </script>
+          </dom-module>
+
+          <fire-event></fire-event>
+        </template>
+      </demo-snippet>
+    </a-slide>
+
     <a-slide class="theme-white" align-center>
       <h1>A full application</h1>
       <iframe src="https://shop.polymer-project.org" width="100%" height="100%"></iframe>
