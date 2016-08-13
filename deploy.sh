@@ -46,6 +46,9 @@ cp -a bower_components/$repo/images/* images/
 # redirect to the demo
 cp bower_components/$repo/index.html index.html
 
+# generate service-worker
+gulp
+
 echo pushing to gh-pages...
 # send it all to github
 git add -A .
