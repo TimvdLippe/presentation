@@ -99,6 +99,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     .theme-demo demo-snippet {
       width: 750px;
+      max-width: 95vw;
       max-height: 90vh;
       overflow-y: auto;
       margin: 0 auto;
@@ -112,9 +113,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       border-radius: 50%;
     }
 
+    @media all and (max-height: 500px) {
+      img.circle {
+        width: 150px;
+      }
+    }
+
     iframe {
-      height: 80vh;
-      width: 80vw;
+      height: 90vh;
+      width: 95vw;
     }
   </style>
 </head>
