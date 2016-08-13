@@ -99,6 +99,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     .theme-demo demo-snippet {
       width: 750px;
+      max-height: 90vh;
+      overflow-y: auto;
       margin: 0 auto;
     }
 
@@ -232,6 +234,137 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <a-slide class="theme-blue" align-center>
       <h1>Dev tools</h1>
       <img src="images/shadowdom.png" />
+    </a-slide>
+
+    <a-slide class="theme-blue" align-center>
+      <div class="title">Communication</div>
+      <div class="subtitle">
+        <ol>
+          <li>Properties</li>
+          <li>Events</li>
+          <li>Methods</li>
+        </ol>
+      </div>
+    </a-slide>
+
+    <a-slide class="theme-demo" full-width>
+      <demo-snippet>
+        <template>
+          <link rel="import" href="bower_components/paper-input/paper-input.html">
+
+          <dom-module id="text-input">
+            <template>
+              <paper-input label="text input" value="{{input}}"></paper-input>
+              <h3>Output:</h3>
+              <span>[[input]]</span>
+            </template>
+            <script>
+              Polymer({
+                is: 'text-input',
+                properties: {
+                  input: String
+                }
+              });
+            </script>
+          </dom-module>
+
+          <text-input></text-input>
+        </template>
+      </demo-snippet>
+    </a-slide>
+
+    <a-slide class="theme-demo" full-width>
+      <demo-snippet>
+        <template>
+          <link rel="import" href="bower_components/paper-checkbox/paper-checkbox.html">
+
+          <dom-module id="toggle-checkbox">
+            <template>
+              <paper-checkbox checked="{{checked}}">Show content</paper-checkbox>
+              <template is="dom-if" if="[[checked]]">
+                <span>Content shown!</span>
+              </template>
+              <hr />
+              <div>Clicked the checkbox [[clicks]] times.</div>
+            </template>
+            <script>
+              Polymer({
+                is: 'toggle-checkbox',
+                properties: {
+                  checked: {
+                    type: Boolean,
+                    observer: '_incrementClicks'
+                  },
+                  clicks: {
+                    type: Number,
+                    value: 0
+                  }
+                },
+                _incrementClicks: function(newValue, oldValue) {
+                  // paper-checkbox initializes checked to false, triggering
+                  // the observer. Ignore this value to not start at 1.
+                  if (oldValue !== undefined) {
+                    this.clicks = this.clicks + 1;
+                  }
+                }
+              });
+            </script>
+          </dom-module>
+
+          <toggle-checkbox></toggle-checkbox>
+        </template>
+      </demo-snippet>
+    </a-slide>
+
+    <a-slide class="theme-demo" full-width>
+      <demo-snippet>
+        <template>
+          <link rel="import" href="bower_components/paper-button/paper-button.html">
+
+          <dom-module id="push-list">
+            <template>
+              <style>
+                paper-button {
+                  background-color: var(--paper-green-500);
+                  margin: 0 auto;
+                  display: flex;
+                  width: 250px;
+                }
+                #list {
+                  height: 190px;
+                  overflow-y: auto;
+                }
+              </style>
+              <paper-button raised on-tap="_addItem">Add a random number!</paper-button>
+              <hr />
+              <div id="list">
+                <template is="dom-repeat" items="[[items]]" index-as="index">
+                  <div>Number [[index]]: [[item]]</div>
+                </template>
+              </div>
+            </template>
+            <script>
+              Polymer({
+                is: 'push-list',
+                properties: {
+                  items: {
+                    type: Array,
+                    value: function() {
+                      return [];
+                    }
+                  }
+                },
+                _addItem: function() {
+                  this.push('items', Math.random());
+                  this.$.list.scrollTop = this.$.list.scrollHeight;
+                }
+              });
+            </script>
+          </dom-module>
+
+          <push-list></push-list>
+        </template>
+      </demo-snippet>
     </a-slide>
 
     <a-slide class="theme-white" align-center>
