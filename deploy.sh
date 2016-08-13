@@ -58,5 +58,5 @@ popd >/dev/null
 
 echo cleaning up...
 cd ..
-# rm -rf ./deploy-temp
+rm -rf ./deploy-temp
 echo done
