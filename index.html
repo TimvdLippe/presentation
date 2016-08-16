@@ -474,6 +474,50 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </demo-snippet>
     </a-slide>
 
+    <a-slide class="theme-blue" align-center>
+      <div class="title">Power with composition</div>
+    </a-slide>
+
+    <a-slide class="theme-demo" full-width>
+      <demo-snippet>
+        <template>
+          <link rel="import" href="bower_components/paper-tabs/paper-tabs.html">
+          <link rel="import" href="bower_components/paper-tabs/paper-tab.html">
+          <link rel="import" href="bower_components/iron-pages/iron-pages.html">
+
+          <dom-module id="composition-power">
+            <template>
+              <style>
+                paper-tab {
+                  background-color: var(--google-blue-100);
+                }
+              </style>
+              <paper-tabs selected="{{selected}}">
+                <paper-tab>One</paper-tab>
+                <paper-tab>Two</paper-tab>
+                <paper-tab>Three</paper-tab>
+              </paper-tabs>
+              <iron-pages selected="[[selected]]">
+                <section>One</section>
+                <section>Two</section>
+                <section>Three</section>
+              </iron-pages>
+            </template>
+            <script>
+              Polymer({
+                is: 'composition-power',
+                properties: {
+                  selected: String
+                }
+              })
+            </script>
+          </dom-module>
+
+          <composition-power></composition-power>
+        </template>
+      </demo-snippet>
+    </a-slide>
+
     <a-slide class="theme-white" align-center>
       <div class="title">Complete websites</div>
     </a-slide>
