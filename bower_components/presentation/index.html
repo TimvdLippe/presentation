@@ -1,0 +1,608 @@
+<!doctype html>
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+  <title>Building for the future with Polymer</title>
+
+  <!-- Load the polyfill -->
+  <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+  <!-- <script>window.Polymer = {dom: 'shadow'};</script> -->
+
+  <!-- Load the elements -->
+  <link rel="import" href="bower_components/literally/a-presentation.html">
+  <link rel="import" href="bower_components/literally/a-slide.html">
+  <link rel="import" href="bower_components/iron-ajax/iron-ajax.html">
+  <link rel="import" href="bower_components/iron-demo-helpers/demo-snippet.html">
+  <link rel="import" href="bower_components/paper-toast/paper-toast.html">
+
+  <link rel="stylesheet" href="bower_components/literally/sample-theme.css">
+
+  <!-- Some fonts! -->
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,700italic,700,400italic,100,100italic' rel='stylesheet' type='text/css'>
+  <link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet">
+
+  <style is="custom-style">
+    /* The sample-theme.css sets up some slide backgrounds for you. Here
+       we set up some content related styles.
+     */
+
+    /* Set up some fonts */
+    body {
+      font-family: 'Roboto', sans-serif;
+    }
+    pre {
+      font-family: 'Inconsolata', monospace;
+    }
+
+    /* Disable bounce scrolling if that's not your thing (it's not mine) */
+    html, body {
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+      -webkit-overflow-scrolling: auto;
+    }
+
+    .code-snippet {
+      background-color: rgba(0, 0, 0, 0.6);
+      width: 100%;
+      padding: 20px;
+      font-size: calc(10px + 2vw);
+      overflow-x: auto;
+    }
+
+    .iframe-title {
+      font-size: 24px;
+      font-weight: lighter;`
+    }
+
+    a-slide.theme-gradient-webcomponents:before {
+      /* Use this so that it blurs just the background image, and not
+       * the foreground text */
+      content: "";
+      position: fixed;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      z-index: -1;
+
+      /* Hack to get rid of the white border after blurring */
+      transform: scale(1.02);
+
+      -webkit-filter: blur(5px);
+      -moz-filter: blur(5px);
+      -o-filter: blur(5px);
+      -ms-filter: blur(5px);
+      filter: blur(5px);
+
+      background: url("./images/webcomponents.jpg")
+          center center no-repeat,
+          -webkit-linear-gradient(top, rgba(1, 1, 1, 0.3) 0%, rgba(1, 1, 1, 0.5) 100%);
+
+      background-blend-mode: multiply;
+      background-size: cover;
+    }
+
+    .theme-demo {
+      background: #4285ff;
+    }
+
+    .theme-demo demo-snippet {
+      width: 750px;
+      max-width: 95vw;
+      max-height: 90vh;
+      overflow-y: auto;
+      margin: 0 auto;
+      --demo-snippet-code: {
+        font-size: 1vw;
+      };
+    }
+
+    img {
+      max-width: 95vh;
+    }
+
+    .pretitle img {
+      width: 250px;
+    }
+
+    img.circle {
+      border-radius: 50%;
+    }
+
+    @media all and (max-height: 500px) {
+      img.circle {
+        width: 150px;
+      }
+    }
+
+    iframe {
+      height: 90vh;
+      width: 95vw;
+    }
+
+    .invisible {
+      opacity: 0;
+    }
+
+    .theme-blue a {
+      color: white;
+    }
+
+    .list li {
+      list-style: none;
+    }
+
+    .list img {
+      width: 80px;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body unresolved>
+  <a-presentation animated>
+    <a-slide class="theme-blue">
+      <div class="title">Polymer</div>
+      <div class="subtitle">Building on the modern web</div>
+    </a-slide>
+
+    <a-slide class="theme-blue">
+      <div class="pretitle">
+        <img class="circle" src="https://lh3.googleusercontent.com/BBxQgDdGpeIBMgvEleX7J2W_FEzRlYEg4JM6y-mQumBQhR4AOldW5Czyx33gA8xgHY86tl7HcA=w1920-h1080-rw-no" />
+      </div>
+      <div class="title">Tim van der Lippe</div>
+      <div class="subtitle">Google Developer Expert + <br /> master student CS TU Delft</div>
+    </a-slide>
+
+    <a-slide class="theme-white">
+      <div class="pretitle">
+        <img src="https://www.polymer-project.org/images/logos/p-logo.png" />
+      </div>
+      <div class="title">Javascript library</div>
+      <div class="subtitle">Data-binding + style shim</div>
+    </a-slide>
+
+    <a-slide class="theme-white">
+      <div class="pretitle">
+        <img src="http://webcomponents.org/img/logo.svg" />
+        <span>Webcomponents.js</span>
+      </div>
+      <div class="title">Webcomponents polyfill</div>
+      <div class="subtitle">Old browser compatibility</div>
+    </a-slide>
+
+    <a-slide class="theme-gradient-webcomponents" align-center>
+      <div class="title">Webcomponents</div>
+      <div class="subtitle">Building blocks of the web</div>
+    </a-slide>
+
+    <a-slide class="theme-demo" full-width>
+      <demo-snippet>
+        <template>
+          <!-- Import any dependencies -->
+          <link rel="import" href="bower_components/polymer/polymer.html">
+
+          <!-- Custom element definition -->
+          <dom-module id="hello-world">
+            <!-- Inner structure -->
+            <template>
+              <span>Hello World!</span>
+            </template>
+
+            <script>
+              Polymer({
+                is: 'hello-world'
+              });
+            </script>
+          </dom-module>
+
+          <!-- Usage of custom element -->
+          <hello-world></hello-world>
+        </template>
+      </demo-snippet>
+    </a-slide>
+
+    <a-slide class="theme-demo" full-width>
+      <demo-snippet>
+        <template>
+          <link rel="import" href="bower_components/polymer/polymer.html">
+
+          <dom-module id="red-text">
+            <style>
+              span {
+                color: red;
+              }
+            </style>
+            <template>
+              <span>Red!</span>
+            </template>
+          </dom-module>
+
+          <dom-module id="two-color-text">
+            <style>
+              span {
+                color: blue;
+              }
+            </style>
+            <template>
+              <span>Blue!</span>
+              <red-text></red-text>
+            </template>
+          </dom-module>
+
+          <script>
+            Polymer({
+              is: 'two-color-text'
+            });
+            Polymer({
+              is: 'red-text'
+            });
+          </script>
+          <two-color-text></two-color-text>
+        </template>
+      </demo-snippet>
+    </a-slide>
+
+    <a-slide class="theme-blue">
+      <div class="title">Shadow dom</div>
+      <div class="subtitle">CSS scoping + performance benefits</div>
+    </a-slide>
+
+    <a-slide class="theme-blue" align-center>
+      <iframe src="http://caniuse.com/#feat=shadowdom" width="100%" height="100%"></iframe>
+    </a-slide>
+
+    <a-slide class="theme-blue" align-center>
+      <h1>Dev tools</h1>
+      <img src="images/shadowdom.png" />
+    </a-slide>
+
+    <a-slide class="theme-blue" align-center suppress-next-animation>
+      <div class="title">Communication</div>
+      <div class="subtitle">
+        <ol>
+          <li>Properties</li>
+          <li class="invisible">Events</li>
+          <li class="invisible">Methods</li>
+        </ol>
+      </div>
+    </a-slide>
+
+    <a-slide class="theme-blue" align-center suppress-next-animation suppress-previous-animation>
+      <div class="title">Communication</div>
+      <div class="subtitle">
+        <ol>
+          <li>Properties</li>
+          <li>Events</li>
+          <li class="invisible">Methods</li>
+        </ol>
+      </div>
+    </a-slide>
+
+    <a-slide class="theme-blue" align-center suppress-previous-animation>
+      <div class="title">Communication</div>
+      <div class="subtitle">
+        <ol>
+          <li>Properties</li>
+          <li>Events</li>
+          <li>Methods</li>
+        </ol>
+      </div>
+    </a-slide>
+
+    <a-slide class="theme-demo" full-width>
+      <demo-snippet>
+        <template>
+          <link rel="import" href="bower_components/paper-input/paper-input.html">
+
+          <dom-module id="text-input">
+            <template>
+              <paper-input label="text input" value="{{input}}"></paper-input>
+              <h3>Output:</h3>
+              <span>[[input]]</span>
+            </template>
+            <script>
+              Polymer({
+                is: 'text-input',
+                properties: {
+                  input: String
+                }
+              });
+            </script>
+          </dom-module>
+
+          <text-input></text-input>
+        </template>
+      </demo-snippet>
+    </a-slide>
+
+    <a-slide class="theme-demo" full-width>
+      <demo-snippet>
+        <template>
+          <link rel="import" href="bower_components/paper-checkbox/paper-checkbox.html">
+
+          <dom-module id="toggle-checkbox">
+            <template>
+              <paper-checkbox checked="{{checked}}">Show content</paper-checkbox>
+              <template is="dom-if" if="[[checked]]">
+                <span>Content shown!</span>
+              </template>
+              <hr />
+              <div>Clicked the checkbox [[clicks]] times.</div>
+            </template>
+            <script>
+              Polymer({
+                is: 'toggle-checkbox',
+                properties: {
+                  checked: {
+                    type: Boolean,
+                    observer: '_incrementClicks'
+                  },
+                  clicks: {
+                    type: Number,
+                    value: 0
+                  }
+                },
+                _incrementClicks: function(newValue, oldValue) {
+                  // paper-checkbox initializes checked to false, triggering
+                  // the observer. Ignore this value to not start at 1.
+                  if (oldValue !== undefined) {
+                    this.clicks = this.clicks + 1;
+                  }
+                }
+              });
+            </script>
+          </dom-module>
+
+          <toggle-checkbox></toggle-checkbox>
+        </template>
+      </demo-snippet>
+    </a-slide>
+
+    <a-slide class="theme-blue" align-center>
+      <div class="title">Events (+ listeners)</div>
+    </a-slide>
+
+    <a-slide class="theme-demo" full-width>
+      <demo-snippet>
+        <template>
+          <link rel="import" href="bower_components/paper-button/paper-button.html">
+
+          <dom-module id="push-list">
+            <template>
+              <style>
+                paper-button {
+                  background-color: var(--paper-green-500);
+                  margin: 0 auto;
+                  display: flex;
+                  width: 250px;
+                }
+                #list {
+                  height: 190px;
+                  overflow-y: auto;
+                }
+              </style>
+              <paper-button raised on-tap="_addItem">Add a random number!</paper-button>
+              <hr />
+              <div id="list">
+                <template is="dom-repeat" items="[[items]]" index-as="index">
+                  <div>Number [[index]]: [[item]]</div>
+                </template>
+              </div>
+            </template>
+            <script>
+              Polymer({
+                is: 'push-list',
+                properties: {
+                  items: {
+                    type: Array,
+                    value: function() {
+                      return [];
+                    }
+                  }
+                },
+                _addItem: function() {
+                  this.push('items', Math.random());
+                  this.$.list.scrollTop = this.$.list.scrollHeight;
+                }
+              });
+            </script>
+          </dom-module>
+
+          <push-list></push-list>
+        </template>
+      </demo-snippet>
+    </a-slide>
+
+    <a-slide class="theme-demo" full-width>
+      <demo-snippet>
+        <template>
+          <link rel="import" href="bower_components/paper-button/paper-button.html">
+
+          <dom-module id="expose-number">
+            <template>
+              <paper-button raised on-tap="_fireNumber">Fire number [[number]]</paper-button>
+            </template>
+            <script>
+              Polymer({
+                is: 'expose-number',
+                properties: {
+                  number: Number
+                },
+                _fireNumber: function() {
+                  this.fire('new-number', this.number);
+                }
+              });
+            </script>
+          </dom-module>
+
+          <dom-module id="fire-event">
+            <template>
+              <expose-number number=5></expose-number>
+              <expose-number number=31></expose-number>
+              <span>Last fired number: [[number]]</span>
+            </template>
+            <script>
+              Polymer({
+                is: 'fire-event',
+                properties: {
+                  number: Number
+                },
+                listeners: {
+                  'new-number': '_setNumber'
+                },
+                _setNumber: function(e) {
+                  this.number = e.detail;
+                }
+              });
+            </script>
+          </dom-module>
+
+          <fire-event></fire-event>
+        </template>
+      </demo-snippet>
+    </a-slide>
+
+    <a-slide class="theme-blue" align-center>
+      <div class="title">Power with composition</div>
+    </a-slide>
+
+    <a-slide class="theme-demo" full-width>
+      <demo-snippet>
+        <template>
+          <link rel="import" href="bower_components/paper-tabs/paper-tabs.html">
+          <link rel="import" href="bower_components/paper-tabs/paper-tab.html">
+          <link rel="import" href="bower_components/iron-pages/iron-pages.html">
+
+          <dom-module id="composition-power">
+            <template>
+              <style>
+                paper-tab {
+                  background-color: var(--google-blue-100);
+                }
+              </style>
+              <paper-tabs selected="{{selected}}">
+                <paper-tab>One</paper-tab>
+                <paper-tab>Two</paper-tab>
+                <paper-tab>Three</paper-tab>
+              </paper-tabs>
+              <iron-pages selected="[[selected]]">
+                <section>One</section>
+                <section>Two</section>
+                <section>Three</section>
+              </iron-pages>
+            </template>
+            <script>
+              Polymer({
+                is: 'composition-power',
+                properties: {
+                  selected: String
+                }
+              })
+            </script>
+          </dom-module>
+
+          <composition-power></composition-power>
+        </template>
+      </demo-snippet>
+    </a-slide>
+
+    <a-slide class="theme-white" align-center>
+      <div class="title">Complete websites</div>
+    </a-slide>
+
+    <a-slide class="theme-white" align-center>
+      <h1>A full application</h1>
+      <iframe src="https://shop.polymer-project.org" width="100%" height="100%"></iframe>
+    </a-slide>
+    <a-slide class="theme-white" align-center>
+      <h1><a href="https://github.com/abdonrd/PolymerProjects/blob/master/README.md" target="_blank">Community websites</a></h1>
+      <iframe src="https://rio16.usatoday.com/olympics-rio-2016/schedule-results" width="100%" height="100%"></iframe>
+    </a-slide>
+
+    <a-slide class="theme-blue" align-center>
+      <div class="title">Useful links</div>
+      <div class="subtitle">
+        <ol>
+          <li><a href="https://elements.polymer-project.org/" target="_blank">Elements catalog</a></li>
+          <li><a href="https://customelements.io/" target="_blank">Community built custom elements</a></li>
+          <li><a href="https://www.polymer-project.org/1.0/docs/devguide/feature-overview" target="_blank">Documentation</a></li>
+        </ol>
+      </div>
+    </a-slide>
+
+    <a-slide class="theme-white" align-center>
+      <div class="title">Contact information</div>
+      <div class="subtitle list">
+        <ul>
+          <li><img src="https://www.google.com/images/icons/product/googlemail-128.png"/>: tvanderlippe</a></li>
+          <li><img src="https://twittercommunity.com/uploads/default/1339/b5c34a09eb5dbbac.png" />: TimvdLippe</li>
+          <li><img src="https://assets-cdn.github.com/images/modules/logos_page/GitHub-Mark.png" />: TimvdLippe</a></li>
+        </ul>
+      </div>
+    </a-slide>
+  </a-presentation>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      // Show a toast with a service-worker-related update.
+      window.showToast = function(message) {
+        var toast = document.getElementById('sw-toast');
+
+        if (!toast) {
+          toast = document.createElement('paper-toast');
+          toast.id = 'sw-toast';
+          document.body.appendChild(toast);
+        }
+
+        toast.textContent = message;
+        toast.show();
+      };
+
+      navigator.serviceWorker.register('service-worker.js')
+      .then(function(registration) {
+          registration.onupdatefound = function() {
+            // The updatefound event implies that registration.installing is set; see
+            // https://slightlyoff.github.io/ServiceWorker/spec/service_worker/index.html#service-worker-container-updatefound-event
+            var installingWorker = registration.installing;
+            installingWorker.onstatechange = function() {
+              switch (installingWorker.state) {
+                case 'installed':
+                if (!navigator.serviceWorker.controller) {
+                  window.showToast('Service Worker installed! Pages you view are cached for offline use.');
+                }
+                break;
+
+                case 'redundant':
+                throw Error('The installing service worker became redundant.');
+              }
+            };
+          };
+        }).catch(function(e) {
+          console.error('Service worker registration failed:', e);
+        });
+    }
+
+    // Check to see if the service worker controlling the page at initial load
+    // has become redundant, since this implies there's a new service worker with fresh content.
+    if (navigator.serviceWorker && navigator.serviceWorker.controller) {
+      navigator.serviceWorker.controller.onstatechange = function(event) {
+        if (event.target.state === 'redundant') {
+          window.showToast('Site updated. Refresh this page to see the latest content.');
+        }
+      };
+    }
+  </script>
+</body>
+</html>
