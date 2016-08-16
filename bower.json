@@ -3,7 +3,7 @@
   "private": true,
   "dependencies": {
     "polymer": "polymer/polymer#^1.0.0",
-    "literally": "notwaldorf/literally#master",
+    "literally": "timvdlippe/literally#suppres-animations-for-bullet-lists",
     "iron-demo-helpers": "polymerelements/iron-demo-helpers#^1.2.4",
     "iron-ajax": "polymerelements/iron-ajax#^1.4.3",
     "paper-input": "polymerelements/paper-input#^1.1.17",
@@ -14,5 +14,8 @@
   },
   "devDependencies": {
     "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
+  },
+  "resolutions": {
+    "literally": "suppres-animations-for-bullet-lists"
   }
 }

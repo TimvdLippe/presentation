@@ -32,7 +32,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <link href='https://fonts.googleapis.com/css?family=Roboto:400,700italic,700,400italic,100,100italic' rel='stylesheet' type='text/css'>
   <link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet">
 
-  <style>
+  <style is="custom-style">
     /* The sample-theme.css sets up some slide backgrounds for you. Here
        we set up some content related styles.
      */
@@ -104,6 +104,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       max-height: 90vh;
       overflow-y: auto;
       margin: 0 auto;
+      --demo-snippet-code: {
+        font-size: 1vw;
+      };
     }
 
     img {
@@ -127,6 +130,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     iframe {
       height: 90vh;
       width: 95vw;
+    }
+
+    .invisible {
+      opacity: 0;
+    }
+
+    .theme-blue a {
+      color: white;
+    }
+
+    .list li {
+      list-style: none;
+    }
+
+    .list img {
+      width: 80px;
+      vertical-align: middle;
     }
   </style>
 </head>
@@ -248,7 +268,29 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <img src="images/shadowdom.png" />
     </a-slide>
 
-    <a-slide class="theme-blue" align-center>
+    <a-slide class="theme-blue" align-center suppress-next-animation>
+      <div class="title">Communication</div>
+      <div class="subtitle">
+        <ol>
+          <li>Properties</li>
+          <li class="invisible">Events</li>
+          <li class="invisible">Methods</li>
+        </ol>
+      </div>
+    </a-slide>
+
+    <a-slide class="theme-blue" align-center suppress-next-animation suppress-previous-animation>
+      <div class="title">Communication</div>
+      <div class="subtitle">
+        <ol>
+          <li>Properties</li>
+          <li>Events</li>
+          <li class="invisible">Methods</li>
+        </ol>
+      </div>
+    </a-slide>
+
+    <a-slide class="theme-blue" align-center suppress-previous-animation>
       <div class="title">Communication</div>
       <div class="subtitle">
         <ol>
@@ -326,6 +368,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <toggle-checkbox></toggle-checkbox>
         </template>
       </demo-snippet>
+    </a-slide>
+
+    <a-slide class="theme-blue" align-center>
+      <div class="title">Events (+ listeners)</div>
     </a-slide>
 
     <a-slide class="theme-demo" full-width>
@@ -429,12 +475,38 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </a-slide>
 
     <a-slide class="theme-white" align-center>
+      <div class="title">Complete websites</div>
+    </a-slide>
+
+    <a-slide class="theme-white" align-center>
       <h1>A full application</h1>
       <iframe src="https://shop.polymer-project.org" width="100%" height="100%"></iframe>
     </a-slide>
     <a-slide class="theme-white" align-center>
       <h1><a href="https://github.com/abdonrd/PolymerProjects/blob/master/README.md" target="_blank">Community websites</a></h1>
       <iframe src="https://rio16.usatoday.com/olympics-rio-2016/schedule-results" width="100%" height="100%"></iframe>
+    </a-slide>
+
+    <a-slide class="theme-blue" align-center>
+      <div class="title">Useful links</div>
+      <div class="subtitle">
+        <ol>
+          <li><a href="https://elements.polymer-project.org/" target="_blank">Elements catalog</a></li>
+          <li><a href="https://customelements.io/" target="_blank">Community built custom elements</a></li>
+          <li><a href="https://www.polymer-project.org/1.0/docs/devguide/feature-overview" target="_blank">Documentation</a></li>
+        </ol>
+      </div>
+    </a-slide>
+
+    <a-slide class="theme-white" align-center>
+      <div class="title">Contact information</div>
+      <div class="subtitle list">
+        <ul>
+          <li><img src="https://www.google.com/images/icons/product/googlemail-128.png"/>: tvanderlippe</a></li>
+          <li><img src="https://twittercommunity.com/uploads/default/1339/b5c34a09eb5dbbac.png" />: TimvdLippe</li>
+          <li><img src="https://assets-cdn.github.com/images/modules/logos_page/GitHub-Mark.png" />: TimvdLippe</a></li>
+        </ul>
+      </div>
     </a-slide>
   </a-presentation>
 
