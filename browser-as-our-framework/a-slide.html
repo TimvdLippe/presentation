@@ -1,0 +1,48 @@
+<link rel="import" href="bower_components/polymer/polymer.html" />
+
+<dom-module id="a-slide">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+
+      section {
+        display: flex;
+        align-items: center;
+        text-align: left;
+        padding: 0 5vw;
+        height: 100%;
+      }
+
+      ::slotted(span) {
+        display: block;
+      }
+
+      ::slotted(span:first-of-type) {
+        font-size: calc(16px + 6vw);
+        font-weight: bold;
+        width: 100%;
+      }
+
+      ::slotted(span:not(:first-of-type)), ::slotted(ul) {
+        font-size: calc(16px + 4vw);
+        font-weight: lighter;
+      }
+
+      ::slotted(ul) {
+        margin-left: 40px;
+      }
+    </style>
+    <section>
+      <div>
+        <slot></slot>
+      </div>
+    </section>
+  </template>
+  <script>
+    Polymer({
+      is: 'a-slide'
+    });
+  </script>
+</dom-module>

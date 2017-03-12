@@ -1,0 +1,143 @@
+<link rel="import" href="bower_components/iron-pages/iron-pages.html" />
+<link rel="import" href="a-slide.html" />
+
+<dom-module id="a-presentation">
+  <template>
+    <style>
+      a-slide {
+        background: #4285ff;
+        color: white;
+        width: 100%;
+        height: 100%;
+      }
+
+      img {
+        display: block;
+      }
+
+      .circle {
+        border-radius: 50%;
+        width: 250px;
+      }
+    </style>
+
+    <iron-pages id="pages" on-selected-changed="_updateHash">
+      <a-slide>
+        <span>The browser as our framework</span>
+      </a-slide>
+      <a-slide>
+        <img class="circle" src="https://lh3.googleusercontent.com/BBxQgDdGpeIBMgvEleX7J2W_FEzRlYEg4JM6y-mQumBQhR4AOldW5Czyx33gA8xgHY86tl7HcA=w1920-h1080-rw-no" />
+        <span>Tim van der Lippe</span>
+        <span>Google Developer Expert + <br /> master student CS TU Delft</span>
+      </a-slide>
+      <a-slide>
+        <img src="https://wisv.ch/assets/logo.png" />
+        <span></span>
+        <span>Computer Science + Mathematics</span>
+        <ul>
+          <li>
+            3500 members
+          </li>
+          <li>
+            37 committees
+          </li>
+          <li>
+            22 committees with 1+ website
+          </li>
+        </ul>
+      </a-slide>
+      <a-slide>
+        <span>Website developers</span>
+        <span>Usually 1 and maybe 2 members</span>
+        <span>Limited timeframe (couple of weeks)</span>
+      </a-slide>
+      <a-slide>
+        <span>Technology choice</span>
+        <ul>
+          <li>
+            Experience with technology
+          </li>
+          <li>
+            Fancy
+          </li>
+        </ul>
+      </a-slide>
+      <a-slide>
+        <span></span>
+        <ul>
+          <li>
+            Express
+          </li>
+          <li>
+            Polymer
+          </li>
+          <li>
+            PHP + Bootstrap
+          </li>
+          <li>
+            PHP + jQuery
+          </li>
+          <li>
+            Wordpress + jQuery
+          </li>
+          <li>
+            Angular + jQuery
+          </li>
+          <li>
+            Etc...
+          </li>
+        </ul>
+      </a-slide>
+    </iron-pages>
+  </template>
+  <script>
+    Polymer({
+      is: 'a-presentation',
+
+      hostAttributes: {
+        'tabindex': 0
+      },
+
+      attached: function() {
+        this.focus();
+
+        this._maxSlides = this.$.pages.children.length - 1;
+
+        var nexts = [39 /* right */, 40 /* down */, 32 /* space */, 13 /* enter */];
+        var backs = [37 /* left */, 38 /* up */];
+        this.addEventListener('keydown', function(event) {
+          if (nexts.indexOf(event.keyCode) !== -1 ) {
+            this.next();
+          } else if (backs.indexOf(event.keyCode) !== -1) {
+            this.previous();
+          } else if ((event.charChode == '32')) {  // Ok Firefox.
+            this.next();
+          }
+        }, true);
+        window.addEventListener('hashchange', this.selectIndexFromHash.bind(this));
+        this.selectIndexFromHash();
+      },
+
+      next: function() {
+        if (this._maxSlides !== this.$.pages.selected) {
+          this.$.pages.selectNext();
+        }
+      },
+
+      previous: function() {
+        if (this.$.pages.selected > 0) {
+          this.$.pages.selectPrevious();
+        }
+      },
+
+      selectIndexFromHash: function() {
+        var index = parseInt(window.location.hash.replace('#', '') || 0);
+        this.$.pages.select(Math.min(index, this._maxSlides));
+      },
+
+      _updateHash: function(e) {
+        window.location.hash = e.detail.value;
+      }
+    });
+  </script>
+</dom-module>
