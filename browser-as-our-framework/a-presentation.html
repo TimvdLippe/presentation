@@ -1,16 +1,23 @@
 <link rel="import" href="bower_components/iron-pages/iron-pages.html" />
 <link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html" />
 <link rel="import" href="bower_components/iron-icons/iron-icons.html" />
+<link rel="import" href="bower_components/marked-element/marked-element.html" />
+<link rel="import" href="bower_components/iron-ajax/iron-ajax.html" />
 <link rel="import" href="a-slide.html" />
 
 <dom-module id="a-presentation">
   <template>
     <style>
       a-slide {
-        background: #4285ff;
+        background-color: #4285ff;
         color: white;
         width: 100%;
         height: 100%;
+      }
+
+      a-slide.white {
+        background-color: white;
+        color: black;
       }
 
       img {
@@ -32,6 +39,12 @@
       }
       paper-icon-button.back {
         right: calc(7vw + 24px);
+      }
+
+      marked-element {
+        margin-top: 25px;
+        overflow: auto;
+        max-height: 50vh;
       }
     </style>
 
@@ -102,6 +115,64 @@
           </li>
         </ul>
       </a-slide>
+      <a-slide>
+        <span>jQuery</span>
+        <ul>
+          <li>
+            Minimal
+          </li>
+          <li>
+            Easy to grasp
+          </li>
+          <li>
+            Now outdated
+          </li>
+        </ul>
+      </a-slide>
+      <a-slide>
+        <span>Observed problems</span>
+        <ul>
+          <li>
+            Non-performant
+          </li>
+          <li>
+            Buggy
+          </li>
+          <li>
+            Maintenance time-consuming
+          </li>
+          <li>
+            Computer Science only
+          </li>
+        </ul>
+      </a-slide>
+      <a-slide class="white">
+        <span>Custom Elements vision</span>
+        <a href="https://github.com/WISVCH/committee-website-vision">https://github.com/WISVCH/committee-website-vision</a>
+        <iron-ajax
+          id="vision"
+          url="https://raw.githubusercontent.com/WISVCH/committee-website-vision/master/README.md"
+          handle-as="text"
+          last-response="{{vision}}"
+        ></iron-ajax>
+        <marked-element markdown="[[vision]]"></marked-element>
+      </a-slide>
+      <a-slide>
+        <span>Custom elements vision</span>
+        <span>Important: analyze your use case</span>
+        <span>Discuss with stakeholders:</span>
+        <ul>
+          <li>
+            Board
+          </li>
+          <li>
+            Frequent committee members
+          </li>
+          <li>
+            Mathematics students
+          </li>
+        </ul>
+      </a-slide>
     </iron-pages>
     <paper-icon-button class="back" icon="icons:arrow-back" on-tap="previous"></paper-icon-button>
     <paper-icon-button class="forward" icon="icons:arrow-forward" on-tap="next"></paper-icon-button>
@@ -132,6 +203,8 @@
         }, true);
         window.addEventListener('hashchange', this.selectIndexFromHash.bind(this));
         this.selectIndexFromHash();
+
+        this.$.vision.generateRequest();
       },
 
       next: function() {
