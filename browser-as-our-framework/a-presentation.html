@@ -1,4 +1,6 @@
 <link rel="import" href="bower_components/iron-pages/iron-pages.html" />
+<link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html" />
+<link rel="import" href="bower_components/iron-icons/iron-icons.html" />
 <link rel="import" href="a-slide.html" />
 
 <dom-module id="a-presentation">
@@ -18,6 +20,18 @@
       .circle {
         border-radius: 50%;
         width: 250px;
+      }
+
+      paper-icon-button {
+        position: absolute;
+        bottom: 2vh;
+      }
+
+      paper-icon-button.forward {
+        right: 5vw;
+      }
+      paper-icon-button.back {
+        right: calc(7vw + 24px);
       }
     </style>
 
@@ -89,6 +103,8 @@
         </ul>
       </a-slide>
     </iron-pages>
+    <paper-icon-button class="back" icon="icons:arrow-back" on-tap="previous"></paper-icon-button>
+    <paper-icon-button class="forward" icon="icons:arrow-forward" on-tap="next"></paper-icon-button>
   </template>
   <script>
     Polymer({
