@@ -48,6 +48,12 @@
         overflow: auto;
         max-height: 50vh;
       }
+
+      svg {
+        width: 80vw;
+        margin: 0 auto;
+        height: 200px;
+      }
     </style>
 
     <iron-pages id="pages" on-selected-changed="_updateHash">
@@ -184,6 +190,47 @@
         <website-timers>
           <website-timer url="https://areafiftylan.firebaseapp.com/"></website-timer>
         </website-timers>
+      </a-slide>
+      <a-slide>
+        <span>Perceived slowness</span>
+        <span>Content is not prioritized</span>
+        <span>Waiting for almost full page load</span>
+      </a-slide>
+      <a-slide>
+        <svg viewBox="-15 -15 1250 250" preserveAspectRatio="xMidYMid meet">
+          <g>
+            <circle x="0" y="0" cx="100" cy="100" r="100" fill="none" stroke="white" stroke-width="2" />
+            <text x="50" y="100" font-family="Verdana" font-size="25" fill="white">index.html</text>
+          </g>
+
+          <line stroke="white" stroke-width="2" x1="200" y1="100" x2="250" y2="100"></line>
+
+          <g transform="translate(250, 0)">
+            <circle x="0" y="0" cx="100" cy="100" r="100" fill="none" stroke="white" stroke-width="2" />
+            <text x="50" y="100" font-family="Verdana" font-size="25" fill="white">my-app</text>
+          </g>
+
+          <line stroke="white" stroke-width="2" x1="450" y1="100" x2="500" y2="100"></line>
+
+          <g transform="translate(500, 0)">
+            <circle x="0" y="0" cx="100" cy="100" r="100" fill="none" stroke="white" stroke-width="2" />
+            <text x="50" y="100" font-family="Verdana" font-size="25" fill="white">app skeleton</text>
+          </g>
+
+          <line stroke="white" stroke-width="2" x1="700" y1="100" x2="750" y2="100"></line>
+
+          <g transform="translate(750, 0)">
+            <circle x="0" y="0" cx="100" cy="100" r="100" fill="none" stroke="white" stroke-width="2" />
+            <text x="50" y="100" font-family="Verdana" font-size="25" fill="white">lazy load</text>
+          </g>
+
+          <line stroke="white" stroke-width="2" x1="950" y1="100" x2="1000" y2="100"></line>
+
+          <g transform="translate(1000, 0)">
+            <circle x="0" y="0" cx="100" cy="100" r="100" fill="none" stroke="white" stroke-width="2" />
+            <text x="50" y="100" font-family="Verdana" font-size="25" fill="white">show content</text>
+          </g>
+        </svg>
       </a-slide>
     </iron-pages>
     <paper-icon-button class="back" icon="icons:arrow-back" on-tap="previous"></paper-icon-button>
