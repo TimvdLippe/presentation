@@ -1,0 +1,25 @@
+{
+  "name": "browser-as-our-framework",
+  "homepage": "https://github.com/TimvdLippe/presentation/browser-as-our-framework",
+  "authors": [
+    "Tim van der Lippe <tvanderlippe@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "paper-icon-button": "polymerelements/paper-icon-button#2.0-preview",
+    "polymer": "polymer/polymer#2.0.0-rc.2",
+    "iron-icons": "polymerelements/iron-icons#2.0-preview",
+    "iron-ajax": "polymerelements/iron-ajax#2.0-preview",
+    "marked-element": "polymerelements/marked-element#2.0-preview"
+  }
+}

@@ -1,0 +1,232 @@
+<link rel="import" href="bower_components/iron-pages/iron-pages.html" />
+<link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html" />
+<link rel="import" href="bower_components/iron-icons/iron-icons.html" />
+<link rel="import" href="bower_components/marked-element/marked-element.html" />
+<link rel="import" href="bower_components/iron-ajax/iron-ajax.html" />
+<link rel="import" href="a-slide.html" />
+
+<dom-module id="a-presentation">
+  <template>
+    <style>
+      a-slide {
+        background-color: #4285ff;
+        color: white;
+        width: 100%;
+        height: 100%;
+      }
+
+      a-slide.white {
+        background-color: white;
+        color: black;
+      }
+
+      img {
+        display: block;
+      }
+
+      .circle {
+        border-radius: 50%;
+        width: 250px;
+      }
+
+      paper-icon-button {
+        position: absolute;
+        bottom: 2vh;
+      }
+
+      paper-icon-button.forward {
+        right: 5vw;
+      }
+      paper-icon-button.back {
+        right: calc(7vw + 24px);
+      }
+
+      marked-element {
+        margin-top: 25px;
+        overflow: auto;
+        max-height: 50vh;
+      }
+    </style>
+
+    <iron-pages id="pages" on-selected-changed="_updateHash">
+      <a-slide>
+        <span>The browser as our framework</span>
+      </a-slide>
+      <a-slide>
+        <img class="circle" src="https://lh3.googleusercontent.com/BBxQgDdGpeIBMgvEleX7J2W_FEzRlYEg4JM6y-mQumBQhR4AOldW5Czyx33gA8xgHY86tl7HcA=w1920-h1080-rw-no" />
+        <span>Tim van der Lippe</span>
+        <span>Google Developer Expert + <br /> master student CS TU Delft</span>
+      </a-slide>
+      <a-slide>
+        <img src="https://wisv.ch/assets/logo.png" />
+        <span></span>
+        <span>Computer Science + Mathematics</span>
+        <ul>
+          <li>
+            3500 members
+          </li>
+          <li>
+            37 committees
+          </li>
+          <li>
+            22 committees with 1+ website
+          </li>
+        </ul>
+      </a-slide>
+      <a-slide>
+        <span>Website developers</span>
+        <span>Usually 1 and maybe 2 members</span>
+        <span>Limited timeframe (couple of weeks)</span>
+      </a-slide>
+      <a-slide>
+        <span>Technology choice</span>
+        <ul>
+          <li>
+            Experience with technology
+          </li>
+          <li>
+            Fancy
+          </li>
+        </ul>
+      </a-slide>
+      <a-slide>
+        <span></span>
+        <ul>
+          <li>
+            Express
+          </li>
+          <li>
+            Polymer
+          </li>
+          <li>
+            PHP + Bootstrap
+          </li>
+          <li>
+            PHP + jQuery
+          </li>
+          <li>
+            Wordpress + jQuery
+          </li>
+          <li>
+            Angular + jQuery
+          </li>
+          <li>
+            Etc...
+          </li>
+        </ul>
+      </a-slide>
+      <a-slide>
+        <span>jQuery</span>
+        <ul>
+          <li>
+            Minimal
+          </li>
+          <li>
+            Easy to grasp
+          </li>
+          <li>
+            Now outdated
+          </li>
+        </ul>
+      </a-slide>
+      <a-slide>
+        <span>Observed problems</span>
+        <ul>
+          <li>
+            Non-performant
+          </li>
+          <li>
+            Buggy
+          </li>
+          <li>
+            Maintenance time-consuming
+          </li>
+          <li>
+            Computer Science only
+          </li>
+        </ul>
+      </a-slide>
+      <a-slide class="white">
+        <span>Custom Elements vision</span>
+        <a href="https://github.com/WISVCH/committee-website-vision">https://github.com/WISVCH/committee-website-vision</a>
+        <iron-ajax
+          id="vision"
+          url="https://raw.githubusercontent.com/WISVCH/committee-website-vision/master/README.md"
+          handle-as="text"
+          last-response="{{vision}}"
+        ></iron-ajax>
+        <marked-element markdown="[[vision]]"></marked-element>
+      </a-slide>
+      <a-slide>
+        <span>Custom elements vision</span>
+        <span>Important: analyze your use case</span>
+        <span>Discuss with stakeholders:</span>
+        <ul>
+          <li>
+            Board
+          </li>
+          <li>
+            Frequent committee members
+          </li>
+          <li>
+            Mathematics students
+          </li>
+        </ul>
+      </a-slide>
+    </iron-pages>
+    <paper-icon-button class="back" icon="icons:arrow-back" on-tap="previous"></paper-icon-button>
+    <paper-icon-button class="forward" icon="icons:arrow-forward" on-tap="next"></paper-icon-button>
+  </template>
+  <script>
+    Polymer({
+      is: 'a-presentation',
+
+      hostAttributes: {
+        'tabindex': 0
+      },
+
+      attached: function() {
+        this.focus();
+
+        this._maxSlides = this.$.pages.children.length - 1;
+
+        var nexts = [39 /* right */, 40 /* down */, 32 /* space */, 13 /* enter */];
+        var backs = [37 /* left */, 38 /* up */];
+        this.addEventListener('keydown', function(event) {
+          if (nexts.indexOf(event.keyCode) !== -1 ) {
+            this.next();
+          } else if (backs.indexOf(event.keyCode) !== -1) {
+            this.previous();
+          } else if ((event.charChode == '32')) {  // Ok Firefox.
+            this.next();
+          }
+        }, true);
+        window.addEventListener('hashchange', this.selectIndexFromHash.bind(this));
+        this.selectIndexFromHash();
+
+        this.$.vision.generateRequest();
+      },
+
+      next: function() {
+        if (this._maxSlides !== this.$.pages.selected) {
+          this.$.pages.selectNext();
+        }
+      },
+
+      previous: function() {
+        if (this.$.pages.selected > 0) {
+          this.$.pages.selectPrevious();
+        }
+      },
+
+      selectIndexFromHash: function() {
+        var index = parseInt(window.location.hash.replace('#', '') || 0);
+        this.$.pages.select(Math.min(index, this._maxSlides));
+      },
+
+      _updateHash: function(e) {
+        window.location.hash = e.detail.value;
+      }
+    });
+  </script>
+</dom-module>
