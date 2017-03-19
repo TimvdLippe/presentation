@@ -49,6 +49,12 @@
         max-height: 50vh;
       }
 
+      marked-element.code {
+        width: 80vw;
+        max-height: 80vh;
+        font-size: 1.5em;
+      }
+
       svg {
         width: 80vw;
         margin: 0 auto;
@@ -158,7 +164,6 @@
         <span>Custom Elements vision</span>
         <a href="https://github.com/WISVCH/committee-website-vision">https://github.com/WISVCH/committee-website-vision</a>
         <iron-ajax
-          id="vision"
           url="https://raw.githubusercontent.com/WISVCH/committee-website-vision/master/README.md"
           handle-as="text"
           last-response="{{vision}}"
@@ -195,6 +200,27 @@
         <span>Perceived slowness</span>
         <span>Content is not prioritized</span>
         <span>Waiting for almost full page load</span>
+      </a-slide>
+      <a-slide>
+        <iron-ajax
+          url="./index-scaffold.md"
+          handle-as="text"
+          last-response="{{indexBoilerPlate}}"
+        ></iron-ajax>
+        <marked-element class="code" markdown="[[indexBoilerPlate]]">
+        </marked-element>
+      </a-slide>
+      <a-slide>
+        <iron-ajax
+          url="./my-app-scaffold.md"
+          handle-as="text"
+          last-response="{{myAppBoilerPlate}}"
+        ></iron-ajax>
+        <marked-element class="code" markdown="[[myAppBoilerPlate]]">
+        </marked-element>
+      </a-slide>
+      <a-slide>
+        <span>PRPL pattern</span>
       </a-slide>
       <a-slide>
         <svg viewBox="-15 -15 1250 250" preserveAspectRatio="xMidYMid meet">
@@ -265,7 +291,10 @@
         window.addEventListener('hashchange', this.selectIndexFromHash.bind(this));
         this.selectIndexFromHash();
 
-        this.$.vision.generateRequest();
+        var ajaxes = Polymer.dom(this.root).querySelectorAll('iron-ajax');
+        for (var i = 0; i < ajaxes.length; i++) {
+          ajaxes[i].generateRequest();
+        }
       },
 
       next: function() {
