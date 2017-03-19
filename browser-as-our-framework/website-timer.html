@@ -1,0 +1,42 @@
+<link rel="import" href="bower_components/polymer/polymer.html" />
+
+<dom-module id="website-timer">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+
+      iframe {
+        width: 100%;
+        height: 100%;
+      }
+
+      div {
+        font-size: 2em;
+        text-align: center;
+      }
+    </style>
+
+    <iframe id="frame" src$="[[url]]"></iframe>
+    <div id="timer">
+
+    </div>
+  </template>
+  <script>
+    Polymer({
+      is: 'website-timer',
+      properties: {
+        url: String
+      },
+
+      refresh: function() {
+        var old = performance.now();
+        this.$.frame.onload = function() {
+          this.$.timer.textContent = (performance.now() - old) + 'ms';
+        }.bind(this);
+        this.$.frame.src = this.url;
+      }
+    })
+  </script>
+</dom-module>

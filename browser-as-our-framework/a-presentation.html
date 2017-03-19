@@ -4,6 +4,8 @@
 <link rel="import" href="bower_components/marked-element/marked-element.html" />
 <link rel="import" href="bower_components/iron-ajax/iron-ajax.html" />
 <link rel="import" href="a-slide.html" />
+<link rel="import" href="website-timers.html" />
+<link rel="import" href="website-timer.html" />
 
 <dom-module id="a-presentation">
   <template>
@@ -173,6 +175,16 @@
           </li>
         </ul>
       </a-slide>
+      <a-slide>
+        <span>"Custom elements are slow!"</span>
+        <span>- Older CH member</span>
+      </a-slide>
+      <a-slide>
+        <span></span>
+        <website-timers>
+          <website-timer url="https://areafiftylan.firebaseapp.com/"></website-timer>
+        </website-timers>
+      </a-slide>
     </iron-pages>
     <paper-icon-button class="back" icon="icons:arrow-back" on-tap="previous"></paper-icon-button>
     <paper-icon-button class="forward" icon="icons:arrow-forward" on-tap="next"></paper-icon-button>
@@ -196,7 +208,9 @@
           if (nexts.indexOf(event.keyCode) !== -1 ) {
             this.next();
           } else if (backs.indexOf(event.keyCode) !== -1) {
-            this.previous();
+            if (!event.altKey) {
+              this.previous();
+            }
           } else if ((event.charChode == '32')) {  // Ok Firefox.
             this.next();
           }
