@@ -1,0 +1,41 @@
+<link rel="import" href="bower_components/polymer/polymer.html" />
+<link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html" />
+
+<dom-module id="website-timers">
+  <template>
+    <style>
+      :host {
+        display: block;
+        width: 80vw;
+        height: 80vh;
+      }
+
+      .timers {
+        display: flex;
+      }
+
+      ::slotted(website-timer) {
+        flex: 1;
+      }
+    </style>
+
+    <div class="timers">
+      <slot></slot>
+      <paper-icon-button icon="icons:refresh" on-tap="_refreshTimers"></paper-icon-button>
+    </div>
+  </template>
+  <script>
+    Polymer({
+      is: 'website-timers',
+      properties: {
+        url: String
+      },
+      _refreshTimers: function() {
+        var c = Polymer.dom(this).children;
+        for (var i = 0; i < c.length; i++) {
+          c[i].refresh();
+        }
+      }
+    })
+  </script>
+</dom-module>

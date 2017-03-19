@@ -4,6 +4,8 @@
 <link rel="import" href="bower_components/marked-element/marked-element.html" />
 <link rel="import" href="bower_components/iron-ajax/iron-ajax.html" />
 <link rel="import" href="a-slide.html" />
+<link rel="import" href="website-timers.html" />
+<link rel="import" href="website-timer.html" />
 
 <dom-module id="a-presentation">
   <template>
@@ -45,6 +47,18 @@
         margin-top: 25px;
         overflow: auto;
         max-height: 50vh;
+      }
+
+      marked-element.code {
+        width: 80vw;
+        max-height: 80vh;
+        font-size: 1.5em;
+      }
+
+      svg {
+        width: 80vw;
+        margin: 0 auto;
+        height: 200px;
       }
     </style>
 
@@ -150,7 +164,6 @@
         <span>Custom Elements vision</span>
         <a href="https://github.com/WISVCH/committee-website-vision">https://github.com/WISVCH/committee-website-vision</a>
         <iron-ajax
-          id="vision"
           url="https://raw.githubusercontent.com/WISVCH/committee-website-vision/master/README.md"
           handle-as="text"
           last-response="{{vision}}"
@@ -172,6 +185,78 @@
             Mathematics students
           </li>
         </ul>
+      </a-slide>
+      <a-slide>
+        <span>"Custom elements are slow!"</span>
+        <span>- Older CH member</span>
+      </a-slide>
+      <a-slide>
+        <span></span>
+        <website-timers>
+          <website-timer url="https://areafiftylan.firebaseapp.com/"></website-timer>
+        </website-timers>
+      </a-slide>
+      <a-slide>
+        <span>Perceived slowness</span>
+        <span>Content is not prioritized</span>
+        <span>Waiting for almost full page load</span>
+      </a-slide>
+      <a-slide>
+        <iron-ajax
+          url="./index-scaffold.md"
+          handle-as="text"
+          last-response="{{indexBoilerPlate}}"
+        ></iron-ajax>
+        <marked-element class="code" markdown="[[indexBoilerPlate]]">
+        </marked-element>
+      </a-slide>
+      <a-slide>
+        <iron-ajax
+          url="./my-app-scaffold.md"
+          handle-as="text"
+          last-response="{{myAppBoilerPlate}}"
+        ></iron-ajax>
+        <marked-element class="code" markdown="[[myAppBoilerPlate]]">
+        </marked-element>
+      </a-slide>
+      <a-slide>
+        <span>PRPL pattern</span>
+      </a-slide>
+      <a-slide>
+        <svg viewBox="-15 -15 1250 250" preserveAspectRatio="xMidYMid meet">
+          <g>
+            <circle x="0" y="0" cx="100" cy="100" r="100" fill="none" stroke="white" stroke-width="2" />
+            <text x="50" y="100" font-family="Verdana" font-size="25" fill="white">index.html</text>
+          </g>
+
+          <line stroke="white" stroke-width="2" x1="200" y1="100" x2="250" y2="100"></line>
+
+          <g transform="translate(250, 0)">
+            <circle x="0" y="0" cx="100" cy="100" r="100" fill="none" stroke="white" stroke-width="2" />
+            <text x="50" y="100" font-family="Verdana" font-size="25" fill="white">my-app</text>
+          </g>
+
+          <line stroke="white" stroke-width="2" x1="450" y1="100" x2="500" y2="100"></line>
+
+          <g transform="translate(500, 0)">
+            <circle x="0" y="0" cx="100" cy="100" r="100" fill="none" stroke="white" stroke-width="2" />
+            <text x="50" y="100" font-family="Verdana" font-size="25" fill="white">app skeleton</text>
+          </g>
+
+          <line stroke="white" stroke-width="2" x1="700" y1="100" x2="750" y2="100"></line>
+
+          <g transform="translate(750, 0)">
+            <circle x="0" y="0" cx="100" cy="100" r="100" fill="none" stroke="white" stroke-width="2" />
+            <text x="50" y="100" font-family="Verdana" font-size="25" fill="white">lazy load</text>
+          </g>
+
+          <line stroke="white" stroke-width="2" x1="950" y1="100" x2="1000" y2="100"></line>
+
+          <g transform="translate(1000, 0)">
+            <circle x="0" y="0" cx="100" cy="100" r="100" fill="none" stroke="white" stroke-width="2" />
+            <text x="50" y="100" font-family="Verdana" font-size="25" fill="white">show content</text>
+          </g>
+        </svg>
       </a-slide>
     </iron-pages>
     <paper-icon-button class="back" icon="icons:arrow-back" on-tap="previous"></paper-icon-button>
@@ -196,7 +281,9 @@
           if (nexts.indexOf(event.keyCode) !== -1 ) {
             this.next();
           } else if (backs.indexOf(event.keyCode) !== -1) {
-            this.previous();
+            if (!event.altKey) {
+              this.previous();
+            }
           } else if ((event.charChode == '32')) {  // Ok Firefox.
             this.next();
           }
@@ -204,7 +291,10 @@
         window.addEventListener('hashchange', this.selectIndexFromHash.bind(this));
         this.selectIndexFromHash();
 
-        this.$.vision.generateRequest();
+        var ajaxes = Polymer.dom(this.root).querySelectorAll('iron-ajax');
+        for (var i = 0; i < ajaxes.length; i++) {
+          ajaxes[i].generateRequest();
+        }
       },
 
       next: function() {
