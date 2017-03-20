@@ -314,6 +314,16 @@
       <a-slide>
         <img src="symposium-load.png" />
       </a-slide>
+      <a-slide class="white">
+        <iron-ajax
+          url="./analyzer.md"
+          handle-as="text"
+          last-response="{{analyzer}}"
+        ></iron-ajax>
+        <marked-element class="code" markdown="[[analyzer]]">
+          <div slot="markdown-html"></div>
+        </marked-element>
+      </a-slide>
     </iron-pages>
     <paper-icon-button class="back" icon="icons:arrow-back" on-tap="previous"></paper-icon-button>
     <paper-icon-button class="forward" icon="icons:arrow-forward" on-tap="next"></paper-icon-button>
