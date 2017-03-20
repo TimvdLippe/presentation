@@ -32,10 +32,16 @@
 
       refresh: function() {
         var old = performance.now();
-        this.$.frame.onload = function() {
-          this.$.timer.textContent = (performance.now() - old) + 'ms';
-        }.bind(this);
-        this.$.frame.src = this.url;
+        this.$.frame.src = '';
+        this.debounce('timer' + this.url, function() {
+          this.$.frame.onload = function() {
+            this.$.timer.textContent = (performance.now() - old) + 'ms';
+            this.fire('refreshed');
+            this.$.frame.onload = function() {};
+          }.bind(this);
+          console.log(this.$.frame);
+          this.$.frame.src = this.url;
+        }, 10);
       }
     })
   </script>
