@@ -28,12 +28,20 @@
     Polymer({
       is: 'website-timers',
       properties: {
-        url: String
+        url: String,
+        _currentReload: Number
+      },
+      listeners: {
+        'refreshed': '_refreshNextTimer'
       },
       _refreshTimers: function() {
+        this._currentReload = 0;
+        this._refreshNextTimer();
+      },
+      _refreshNextTimer: function() {
         var c = Polymer.dom(this).children;
-        for (var i = 0; i < c.length; i++) {
-          c[i].refresh();
+        if (this._currentReload < c.length) {
+          c[this._currentReload++].refresh();
         }
       }
     })
