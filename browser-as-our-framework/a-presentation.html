@@ -63,6 +63,36 @@
         margin: 0 auto;
         height: 200px;
       }
+
+      .flex {
+        display: flex;
+      }
+
+      .flex > * {
+        flex: 1;
+        max-width: 50vw;
+      }
+
+      .flex img.half {
+        max-width: 100%;
+        max-height: 100%;
+      }
+
+      .medium {
+        font-size: calc(16px + 2vw);
+        font-weight: lighter;
+        margin-left: 40px;
+      }
+
+      .list li {
+        list-style: none;
+      }
+
+      .list img {
+        width: 80px;
+        vertical-align: middle;
+        display: inline-block;
+      }
     </style>
 
     <prism-highlighter></prism-highlighter>
@@ -197,6 +227,7 @@
       </a-slide>
       <a-slide>
         <span></span>
+        <a href="https://areafiftylan.nl">https://areafiftylan.nl</a>
         <website-timers>
           <website-timer url="https://areafiftylan.firebaseapp.com/"></website-timer>
         </website-timers>
@@ -207,6 +238,8 @@
         <span>Waiting for almost full page load</span>
       </a-slide>
       <a-slide class="white">
+        <span></span>
+        <span>index.html</span>
         <iron-ajax
           url="./index-scaffold.md"
           handle-as="text"
@@ -217,6 +250,8 @@
         </marked-element>
       </a-slide>
       <a-slide class="white">
+        <span></span>
+        <span>&lt;lancie-app&gt;</span>
         <iron-ajax
           url="./my-app-scaffold.md"
           handle-as="text"
@@ -266,6 +301,8 @@
         </svg>
       </a-slide>
       <a-slide>
+        <span></span>
+        <span>3G load time</span>
         <img src="areafiftylan-load.png" />
       </a-slide>
       <a-slide>
@@ -306,15 +343,20 @@
       </a-slide>
       <a-slide>
         <span></span>
+        <span>Speed comparison</span>
         <website-timers>
           <website-timer url="https://sympo-old-14d37.firebaseapp.com/#/"></website-timer>
           <website-timer url="https://sympo-new.firebaseapp.com/2017/"></website-timer>
         </website-timers>
       </a-slide>
       <a-slide>
+        <span></span>
+        <span>Progressive loading</span>
         <img src="symposium-load.png" />
       </a-slide>
       <a-slide class="white">
+        <span></span>
+        <span>50 lines script</span>
         <iron-ajax
           url="./analyzer.md"
           handle-as="text"
@@ -323,6 +365,82 @@
         <marked-element class="code" markdown="[[analyzer]]">
           <div slot="markdown-html"></div>
         </marked-element>
+      </a-slide>
+      <a-slide>
+        <span></span>
+        <ul>
+          <li>
+            Read index.html
+          </li>
+          <li>
+            Analyze selector for sub-pages
+          </li>
+          <li>
+            Read template with Analyzer
+          </li>
+          <li>
+            Modify AST with parse5
+          </li>
+          <li>
+            Write to disk
+          </li>
+        </ul>
+      </a-slide>
+      <a-slide class="white">
+        <span></span>
+        <span>Scaffolded ticket-page</span>
+        <iron-ajax
+          url="./scaffold.md"
+          handle-as="text"
+          last-response="{{scaffold}}"
+        ></iron-ajax>
+        <marked-element class="code" markdown="[[scaffold]]">
+          <div slot="markdown-html"></div>
+        </marked-element>
+      </a-slide>
+      <a-slide class="white">
+        <span></span>
+        <span>NGINX config (inside Docker)</span>
+        <iron-ajax
+          url="./nginx.md"
+          handle-as="text"
+          last-response="{{nginx}}"
+        ></iron-ajax>
+        <marked-element class="code" markdown="[[nginx]]">
+          <div slot="markdown-html"></div>
+        </marked-element>
+      </a-slide>
+      <a-slide>
+        <span></span>
+        <span>LightHouse score</span>
+        <div class="flex">
+          <div>
+            <img class="half" src="https://pbs.twimg.com/media/C6fS8DrWAAArday.jpg"/>
+          </div>
+          <div>
+            <img src="https://cloud.githubusercontent.com/assets/39191/22478294/23f662f6-e79e-11e6-8de3-ffd7be7bf628.png" width="200px" />
+            <a href="https://github.com/GoogleChrome/lighthouse">https://github.com/GoogleChrome/lighthouse</a>
+            <ul class="medium">
+              <li>
+                Lighthouse <a href="https://chrome.google.com/webstore/detail/lighthouse/blipmdconlkpinefehnmjammfjpmpbjk">extension</a>
+              </li>
+              <li>
+                Assesses your website
+              </li>
+              <li>
+                No JS response impossible with &lt;my-app&gt;
+              </li>
+            </ul>
+          </div>
+        </div>
+      </a-slide>
+      <a-slide class="white">
+        <span>Contact information</span>
+        <ul class="list">
+          <li><img src="https://www.google.com/images/icons/product/googlemail-128.png"/>: tvanderlippe</a></li>
+          <li><img src="https://twittercommunity.com/uploads/default/1339/b5c34a09eb5dbbac.png" />: TimvdLippe</li>
+          <li><img src="https://assets-cdn.github.com/images/modules/logos_page/GitHub-Mark.png" />: TimvdLippe</a></li>
+        </ul>
       </a-slide>
     </iron-pages>
     <paper-icon-button class="back" icon="icons:arrow-back" on-tap="previous"></paper-icon-button>
